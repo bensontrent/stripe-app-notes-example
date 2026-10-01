@@ -2,7 +2,7 @@
   "$schema": "https://stripe.com/stripe-app.schema.json",
   "id": "com.productivity.notetaskerator",
   "name": "Notetaskerator",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "icon": "./app_icon.png",
   "ui_extension": {
     "views": [
@@ -47,15 +47,9 @@
       "purpose": "Emails a team member when a teammate assigns a task to them."
     }
   ],
-  "distribution_type": "public",
-  "sandbox_install_compatible": true,
-  "content_security_policy": {
-    "connect-src": [
-      "https://notes.parcelcraft.com/api/"
-    ],
-    "purpose": "Stores and loads the notes and tasks, and checks the free trial and plan, on the Notetaskerator backend."
-  },
   "constants": {
-    "API_BASE": "https://notes.parcelcraft.com/api"
-  }
+    "API_BASE": "https://notes.parcelcraft.com"
+  },
+  "distribution_type": "public",
+  "sandbox_install_compatible": true
 }
