@@ -36,9 +36,26 @@ import type {
 import type { PaywallDeniedBody, PaywallStatus } from '../types/paywall';
 import type { SettingsPatchBody, SettingsResponse } from '../types/settings';
 
-// Point this at your deployed backend. In development the backend runs
-// `next dev --experimental-https`; published apps must use https.
-export const BACKEND_BASE = 'https://localhost:3006';
+/**
+ * The backend's base URL: `constants.API_BASE` in the manifest
+ * (stripe-app.json, overridden by stripe-app.dev.json in development).
+ * Published apps must use https.
+ */
+export function backendBase(context: ExtensionContextValue): string {
+  const constants = context.environment.constants;
+  const base =
+    constants && typeof constants === 'object' && !Array.isArray(constants)
+      ? constants.API_BASE
+      : undefined;
+  if (typeof base !== 'string' || !base) {
+    throw new BackendConnectionError(
+      'The app has no backend URL configured.',
+      'Set constants.API_BASE in stripe-app.json (or stripe-app.dev.json ' +
+      'for `npm run dev`) and restart `stripe apps start`.',
+    );
+  }
+  return base.replace(/\/+$/, '');
+}
 
 type Method = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
 
@@ -139,6 +156,7 @@ async function signedFetch<T>(
       signatureHint(detail),
     );
   }
+  const BACKEND_BASE = backendBase(context);
 
   // Phase 2: reach the backend at all.
   let response: Response;
@@ -378,13 +396,13 @@ export function deleteAppSession(
 }
 
 /** Browser URL the app opens for the user to log in (state = handshake key). */
-export function loginPageUrl(state: string): string {
-  return `${BACKEND_BASE}/stripe?${new URLSearchParams({ state })}`;
+export function loginPageUrl(context: ExtensionContextValue, state: string): string {
+  return `${backendBase(context)}/stripe?${new URLSearchParams({ state })}`;
 }
 
 /** Browser URL that ends the user's browser session. */
-export function logoutPageUrl(): string {
-  return `${BACKEND_BASE}/stripe-logout`;
+export function logoutPageUrl(context: ExtensionContextValue): string {
+  return `${backendBase(context)}/stripe-logout`;
 }
 
 // ---------------------------------------------------------------------------
@@ -457,19 +475,19 @@ export function refreshPaywallStatus(
  * Browser URL of the backend's public price list. No login: safe to show
  * to anyone, at any point — before the trial, during it, after it.
  */
-export function plansPageUrl(): string {
-  return `${BACKEND_BASE}/plans`;
+export function plansPageUrl(context: ExtensionContextValue): string {
+  return `${backendBase(context)}/plans`;
 }
 
 /**
  * Browser URL of the backend's billing page, where a logged-in user
  * subscribes and manages their plan.
  */
-export function billingPageUrl(): string {
-  return `${BACKEND_BASE}/billing`;
+export function billingPageUrl(context: ExtensionContextValue): string {
+  return `${backendBase(context)}/billing`;
 }
 
 /** Browser URL of the user guide. */
-export function docsPageUrl(): string {
-  return `${BACKEND_BASE}/docs`;
+export function docsPageUrl(context: ExtensionContextValue): string {
+  return `${backendBase(context)}/docs`;
 }

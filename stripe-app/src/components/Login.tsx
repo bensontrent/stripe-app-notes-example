@@ -173,7 +173,7 @@ const Login = ({ context, children }: LoginProps) => {
             css={{ width: "fill" }}
             // The link opens the login page in a browser tab; the onPress
             // (same press) starts polling. Both are needed.
-            href={loginPageUrl(state.context.stateKey)}
+            href={loginPageUrl(context, state.context.stateKey)}
             target="_blank"
             onPress={() => dispatch({ type: "log-in" })}
           >
@@ -210,7 +210,7 @@ const Login = ({ context, children }: LoginProps) => {
             <Link
               // Ends the browser session in a new tab; the onPress deletes
               // the app-side link.
-              href={logoutPageUrl()}
+              href={logoutPageUrl(context)}
               target="_blank"
               onPress={() => dispatch({ type: "log-out" })}
             >

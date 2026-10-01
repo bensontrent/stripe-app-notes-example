@@ -18,6 +18,7 @@
     "typecheck": "tsc --noEmit",
     "login": "stripe login",
     "start": "stripe apps start",
+    "dev": "stripe apps start --manifest stripe-app.dev.json",
     "upload": "stripe apps upload"
   },
   "resolutions": {

@@ -333,7 +333,7 @@ export function QueueTab({ context, tab }: QueueTabProps) {
                 the Dashboard, then open this app in the drawer.
               </Box>
               <Box>
-                <Link href={docsPageUrl()} target="_blank" external>
+                <Link href={docsPageUrl(context)} target="_blank" external>
                   How notes and tasks work
                 </Link>
               </Box>

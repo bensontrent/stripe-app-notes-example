@@ -62,9 +62,12 @@ const mockUserInfo = getUserInfo as jest.MockedFunction<typeof getUserInfo>;
 const mockDescribe = describeNoteTarget as jest.MockedFunction<typeof describeNoteTarget>;
 const mockEmail = getDashboardUserEmail as jest.MockedFunction<typeof getDashboardUserEmail>;
 
+// The manifest's constants (stripe-app.dev.json); the link URLs need API_BASE.
+const constants = { API_BASE: "https://localhost:3006" };
+
 const onCustomer = () =>
   getMockContextProps({
-    environment: { objectContext: { id: "cus_123", object: "customer" } },
+    environment: { constants, objectContext: { id: "cus_123", object: "customer" } },
   });
 
 type Wrapper = ReturnType<typeof render>["wrapper"];
@@ -250,7 +253,7 @@ describe("the notes drawer on a customer", () => {
   });
 
   it("explains itself on a page that has no notes", async () => {
-    const { wrapper } = await renderDrawer(getMockContextProps());
+    const { wrapper } = await renderDrawer(getMockContextProps({ environment: { constants } }));
 
     expect(wrapper.find(Banner)!.props.title).toBe("Open a customer, invoice or payment");
     expect(mockList).not.toHaveBeenCalled();

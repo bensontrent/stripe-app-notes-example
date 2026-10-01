@@ -194,7 +194,7 @@ export function ObjectNotes({ context }: { context: ExtensionContextValue }) {
   const taskQueue = (
     <Button href={createAppRoute({ key: "home" })}>Open the task queue</Button>
   );
-  const help = { label: "How notes and tasks work", href: docsPageUrl() };
+  const help = { label: "How notes and tasks work", href: docsPageUrl(context) };
 
   if (!target) {
     return (

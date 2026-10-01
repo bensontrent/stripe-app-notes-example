@@ -1,0 +1,6 @@
+{
+    "extends": "stripe-app.json",
+    "constants": {
+        "API_BASE": "https://localhost:3006/api"
+    }
+}

@@ -217,8 +217,14 @@ export const RecheckResult = ({
  * it is offered in every view: people want to know the price before they
  * start a trial, not only after it ends.
  */
-export const PlansLink = ({ children = "See plans and pricing" }: { children?: ReactNode }) => (
-  <Link href={plansPageUrl()} target="_blank" external>
+export const PlansLink = ({
+  context,
+  children = "See plans and pricing",
+}: {
+  context: ExtensionContextValue;
+  children?: ReactNode;
+}) => (
+  <Link href={plansPageUrl(context)} target="_blank" external>
     {children}
   </Link>
 );
@@ -256,6 +262,7 @@ type ViewProps = {
 
 /** intro: the terms, and the button that starts the trial. */
 export const TrialIntro = ({
+  context,
   status,
   actions,
   pending,
@@ -287,7 +294,7 @@ export const TrialIntro = ({
     </Box>
 
     <Box>
-      <PlansLink>See what it costs after the trial</PlansLink>
+      <PlansLink context={context}>See what it costs after the trial</PlansLink>
     </Box>
 
     {status.mode === "live" && (
@@ -323,11 +330,11 @@ const UpgradeSteps = ({
 
     <Step number={2}>
       <Box>{planStep}</Box>
-      <Link href={billingPageUrl()} target="_blank" external>
+      <Link href={billingPageUrl(context)} target="_blank" external>
         Open the billing page
       </Link>
       <Box css={{ font: "caption", color: "secondary" }}>
-        Want to compare first? <PlansLink>See plans and pricing</PlansLink> (no
+        Want to compare first? <PlansLink context={context}>See plans and pricing</PlansLink> (no
         login needed).
       </Box>
     </Step>
@@ -388,14 +395,18 @@ export const PastDue = (props: ViewProps) => (
 );
 
 /** Shown above the feature while a trial is running. */
-export const TrialNotice = ({ status, unit }: Pick<ViewProps, "status" | "unit">) => (
+export const TrialNotice = ({
+  context,
+  status,
+  unit,
+}: Pick<ViewProps, "context" | "status" | "unit">) => (
   <Box css={{ stack: "x", gap: "small", alignY: "center", wrap: "wrap" }}>
     <Badge type="info">Free trial</Badge>
     <Inline css={{ font: "caption", color: "secondary" }}>
       {trialRemainingText(status, unit)}
       {status.trial.expiresAt && ` (ends ${formatDate(status.trial.expiresAt)})`}
     </Inline>
-    <PlansLink>See plans</PlansLink>
+    <PlansLink context={context}>See plans</PlansLink>
   </Box>
 );
 
@@ -421,7 +432,7 @@ export function PaywallGate({ children, ...props }: PaywallGateProps) {
       return (
         <Box css={{ stack: "y", gap: "medium" }}>
           {props.status.reason === "trialing" && (
-            <TrialNotice status={props.status} unit={props.unit} />
+            <TrialNotice context={props.context} status={props.status} unit={props.unit} />
           )}
           {children}
         </Box>

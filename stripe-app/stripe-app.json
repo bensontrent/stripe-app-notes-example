@@ -22,13 +22,7 @@
         "viewport": "stripe.dashboard.payment.detail",
         "component": "PaymentNotes"
       }
-    ],
-    "content_security_policy": {
-      "connect-src": [
-        "https://mydomain.com/api/"
-      ],
-      "purpose": "Stores and loads the notes and tasks, and checks the free trial and plan, on the Notetaskerator backend."
-    }
+    ]
   },
   "extensions": null,
   "permissions": [
@@ -54,5 +48,14 @@
     }
   ],
   "distribution_type": "public",
-  "sandbox_install_compatible": true
+  "sandbox_install_compatible": true,
+  "content_security_policy": {
+    "connect-src": [
+      "https://notes.parcelcraft.com/api/"
+    ],
+    "purpose": "Stores and loads the notes and tasks, and checks the free trial and plan, on the Notetaskerator backend."
+  },
+  "constants": {
+    "API_BASE": "https://notes.parcelcraft.com/api"
+  }
 }

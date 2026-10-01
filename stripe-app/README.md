@@ -160,7 +160,9 @@ the test wrapper doesn't search;
 
 ## Pointing at a deployed backend
 
-1. `src/api/backend.ts` → `BACKEND_BASE = 'https://your-backend.example.com'`
+1. `stripe-app.json` → `constants.API_BASE = "https://your-backend.example.com"`
+   (`stripe-app.dev.json` overrides it for `npm run dev`; read through
+   `backendBase(context)` in `src/api/backend.ts`)
 2. `stripe-app.json` → `content_security_policy.connect-src` must list
    `https://your-backend.example.com/api/` (an uploaded app can only reach
    listed URLs; the placeholder there now must be replaced)

@@ -41,10 +41,11 @@ const DEPLOY_ENV_DENYLIST = new Set([
   'DEV_API_KEY', // only honoured under `next dev` anyway
   'NODE_ENV', // Vercel sets it
   'SUPABASE_DB_PASS', // already embedded in the connection strings
+  'NEXT_PUBLIC_BETTER_AUTH_URL', // no longer read; older .env.local files still have it
 ]);
 
 // Rewritten to the production URL when VERCEL_PROJECT_URL is known.
-const PRODUCTION_URL_KEYS = ['BETTER_AUTH_URL', 'NEXT_PUBLIC_BETTER_AUTH_URL'];
+const PRODUCTION_URL_KEYS = ['BETTER_AUTH_URL'];
 
 const PLACEHOLDER = /REPLACE_ME|your-|\.\.\.$|\[YOUR-PASSWORD\]|localhost:5432\/dbname/;
 

@@ -54,7 +54,10 @@ const mockEmail = getDashboardUserEmail as jest.MockedFunction<typeof getDashboa
 
 const renderAt = async (href: string, searchParams = {}) => {
   const router = installMockRouter(href, searchParams);
-  const context = getMockContextProps();
+  // The manifest's constants (stripe-app.dev.json); the link URLs need API_BASE.
+  const context = getMockContextProps({
+    environment: { constants: { API_BASE: "https://localhost:3006" } },
+  });
   const result = render(<FullPage {...context} />);
   await flush();
   await result.update();

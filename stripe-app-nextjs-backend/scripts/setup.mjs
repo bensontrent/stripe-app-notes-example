@@ -314,9 +314,8 @@ ${dim(`Adds missing values to ${path.relative(process.cwd(), envLocalPath) || en
       : 'All random secrets already set — kept as-is.',
   );
 
-  // 5. URLs for local development.
+  // 5. URL for local development.
   if (!have('BETTER_AUTH_URL')) add('BETTER_AUTH_URL', 'https://localhost:3006');
-  if (!have('NEXT_PUBLIC_BETTER_AUTH_URL')) add('NEXT_PUBLIC_BETTER_AUTH_URL', 'https://localhost:3006');
 
   // 6. Stripe test key — reuse the Stripe CLI's login instead of pasting.
   if (have('STRIPE_SECRET_KEY_TEST')) {
