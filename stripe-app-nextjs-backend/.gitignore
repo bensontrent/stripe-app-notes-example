@@ -3,14 +3,9 @@
 # env files — .env is written by `stripe projects env --pull`, .env.local by
 # `npm run setup`. Both hold credentials. Keep only the example.
 .env*
-!.env.example
 
 # Stripe Projects: encrypted credential cache + CLI cache. state.json and
 # state.local.json ARE committed (see https://docs.stripe.com/projects#file-reference).
-.projects/cache
-.projects/vault
-.projects/state.test.json
-.projects/state.local.test.json
 
 # dependencies
 /node_modules
@@ -50,3 +45,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.projects/cache
+.projects/vault
+.projects/state.test.json
+.projects/state.local.test.json
+.env
+.env.*
+!.env.example
