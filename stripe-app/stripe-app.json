@@ -1,8 +1,8 @@
 {
   "$schema": "https://stripe.com/stripe-app.schema.json",
-  "id": "com.productivity.notetaskerator2",
+  "id": "com.productivity.notetaskerator",
   "name": "Notetaskerator",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "icon": "./app_icon.png",
   "ui_extension": {
     "views": [
@@ -53,5 +53,6 @@
       "purpose": "Emails a team member when a teammate assigns a task to them."
     }
   ],
-  "distribution_type": "public"
+  "distribution_type": "public",
+  "sandbox_install_compatible": true
 }
