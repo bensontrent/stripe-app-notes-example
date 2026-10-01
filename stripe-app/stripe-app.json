@@ -51,5 +51,12 @@
     "API_BASE": "https://notes.parcelcraft.com"
   },
   "distribution_type": "public",
-  "sandbox_install_compatible": true
+  "sandbox_install_compatible": true,
+  "content_security_policy": {
+    "connect-src": [
+      "https://*.parcelcraft.com/api/",
+      "https://notes.parcelcraft.com/api/"
+    ],
+    "purpose": "Stores and loads the notes and tasks, and checks the free trial and plan, on the Notetaskerator backend."
+  }
 }
