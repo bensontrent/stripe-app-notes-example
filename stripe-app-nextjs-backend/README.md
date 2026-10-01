@@ -207,11 +207,11 @@ another port.
 
 ## Deploying
 
-Hosting is a Vercel project provisioned through Stripe Projects. Both steps
-create cloud resources:
+Hosting is a Vercel project provisioned through Stripe Projects. Run these
+from this folder; the second step creates cloud resources.
 
 ```bash
-stripe projects init
+stripe projects init --yes --mode manual --skip-skills
 ```
 
 ```bash
@@ -219,8 +219,29 @@ stripe projects add vercel/project
 ```
 
 ```bash
+stripe projects env --pull
+```
+
+```bash
 npm run deploy
 ```
+
+About the `init` flags:
+
+- `--yes` initializes in this folder. Without it, `init` stops with
+  `Current directory is not empty` (`DIRECTORY_SELECTION_REQUIRED`). Don't
+  use `--name` instead: that creates an empty subfolder, and
+  `npm run deploy` reads `.env` from this one.
+- `--mode manual` only sets up the project; `guided` and `template` scaffold
+  a starter app.
+- `--skip-skills` stops `init` from writing `AGENTS.md`, `CLAUDE.md`,
+  `.claude/` and `.agents/`, which would overwrite this folder's
+  `AGENTS.md`.
+
+`stripe projects env --pull` writes the Vercel credentials to `.env`, which
+`npm run deploy` needs. `.gitignore` already covers `.env`, `.vercel` and
+the `.projects/` cache and vault; `.projects/state.json` is meant to be
+committed.
 
 `npm run deploy` (`scripts/deploy-vercel.mjs`) syncs the variables from
 `.env` and `.env.local` to the Vercel project's production environment

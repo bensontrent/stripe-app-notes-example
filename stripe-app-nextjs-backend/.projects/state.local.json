@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "project": {
+    "catalog": "prod",
+    "merchantId": "acct_1B66B1ExfkC84dni",
+    "merchantDisplayName": "Parcelcraft App",
+    "projectId": "project_61VVAyndSEsykMGwN16OnHrZPUSQ0Psvnmvi3i0kS8wq",
+    "projectName": "stripe-app-nextjs-backend",
+    "initializedAt": "2026-10-01T16:39:52.736Z"
+  },
+  "providers": {},
+  "resources": {}
+}
