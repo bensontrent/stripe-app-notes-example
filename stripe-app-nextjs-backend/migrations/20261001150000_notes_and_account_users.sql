@@ -18,8 +18,8 @@
 -- One row per person per account, not per mode: the same teammate works in
 -- test and live mode. Rows are never deleted — notes keep pointing at their
 -- author and assignee.
-CREATE TABLE "account_users" (
-	"stripe_account_id" text NOT NULL REFERENCES "stripe_accounts"("id") ON DELETE CASCADE,
+CREATE TABLE "notes"."account_users" (
+	"stripe_account_id" text NOT NULL REFERENCES "notes"."stripe_accounts"("id") ON DELETE CASCADE,
 	"stripe_user_id" text NOT NULL,
 	"name" text,
 	"email" text,
@@ -27,7 +27,7 @@ CREATE TABLE "account_users" (
 	"last_seen_at" timestamptz NOT NULL DEFAULT now(),
 	CONSTRAINT "account_users_pkey" PRIMARY KEY ("stripe_account_id", "stripe_user_id")
 );
-ALTER TABLE "account_users" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "notes"."account_users" ENABLE ROW LEVEL SECURITY;
 
 -- ============================================================================
 --  notes — a note on a customer, invoice or payment; optionally a task
@@ -59,9 +59,9 @@ ALTER TABLE "account_users" ENABLE ROW LEVEL SECURITY;
 -- composite foreign key makes assigning across accounts impossible, whatever
 -- a request says. created_by / updated_by are Dashboard user ids too ('' for
 -- a caller without one) but carry no foreign key.
-CREATE TABLE "notes" (
+CREATE TABLE "notes"."notes" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid(),
-	"stripe_account_id" text NOT NULL REFERENCES "stripe_accounts"("id") ON DELETE CASCADE,
+	"stripe_account_id" text NOT NULL REFERENCES "notes"."stripe_accounts"("id") ON DELETE CASCADE,
 	"livemode" boolean NOT NULL,
 	"object_type" text NOT NULL,
 	"object_id" text NOT NULL,
@@ -83,17 +83,17 @@ CREATE TABLE "notes" (
 	CONSTRAINT "notes_status_check" CHECK ("status" IN ('open', 'in_progress', 'resolved')),
 	CONSTRAINT "notes_body_check" CHECK (char_length("body") BETWEEN 1 AND 5000),
 	CONSTRAINT "notes_assignee_fkey" FOREIGN KEY ("stripe_account_id", "assignee_stripe_user_id")
-		REFERENCES "account_users" ("stripe_account_id", "stripe_user_id")
+		REFERENCES "notes"."account_users" ("stripe_account_id", "stripe_user_id")
 );
 
 -- The notes on one object (invoice and payment pages).
-CREATE INDEX "notes_object_idx" ON "notes" ("stripe_account_id", "livemode", "object_type", "object_id");
+CREATE INDEX "notes_object_idx" ON "notes"."notes" ("stripe_account_id", "livemode", "object_type", "object_id");
 -- Everything about one customer (customer page).
-CREATE INDEX "notes_customer_idx" ON "notes" ("stripe_account_id", "livemode", "customer_id");
+CREATE INDEX "notes_customer_idx" ON "notes"."notes" ("stripe_account_id", "livemode", "customer_id");
 -- The task queue (dashboard): open tasks, most urgent first, oldest first.
-CREATE INDEX "notes_task_queue_idx" ON "notes" ("stripe_account_id", "livemode", "status", "priority" DESC, "created_at")
+CREATE INDEX "notes_task_queue_idx" ON "notes"."notes" ("stripe_account_id", "livemode", "status", "priority" DESC, "created_at")
 	WHERE "is_task";
 -- "Assigned to me", and the foreign key's own lookups.
-CREATE INDEX "notes_assignee_idx" ON "notes" ("stripe_account_id", "assignee_stripe_user_id");
+CREATE INDEX "notes_assignee_idx" ON "notes"."notes" ("stripe_account_id", "assignee_stripe_user_id");
 
-ALTER TABLE "notes" ENABLE ROW LEVEL SECURITY;
+ALTER TABLE "notes"."notes" ENABLE ROW LEVEL SECURITY;

@@ -42,8 +42,14 @@ this project: [AGENTS.md](AGENTS.md).
 ```bash
 npm install
 npm run setup      # fills in anything missing in .env.local, creates the tables
-npm run dev        # http://localhost:3006
+npm run dev        # https://localhost:3006
 ```
+
+The dev server uses HTTPS (`next dev --experimental-https`). On the first
+run Next.js installs a local certificate authority with mkcert, which may
+ask for permission, and writes the certificate to `certificates/`
+(gitignored). `npm run dev:http` is the plain-HTTP fallback, but the Stripe
+App and `.env.local` expect `https://localhost:3006`.
 
 `npm run setup` is safe to re-run: it only adds what is missing. While
 anything is still missing, the home page shows a checklist with the fix for
@@ -85,7 +91,8 @@ from nowhere.
 
 | Script | What it does |
 | --- | --- |
-| `npm run dev` | Dev server on port 3006 |
+| `npm run dev` | Dev server on https://localhost:3006 |
+| `npm run dev:http` | Same, over plain HTTP |
 | `npm run build` | Production build. Must pass before every commit |
 | `npm run setup` | Fill in `.env.local`, create the tables. Idempotent |
 | `npm run db:setup` | Apply `setup.sql` and any new files in `migrations/` |
@@ -158,7 +165,7 @@ Locally, one command forwards both and prints the signing secret to put in
 `STRIPE_WEBHOOK_SECRET_TEST_CONNECTED`:
 
 ```bash
-stripe listen --forward-connect-to "localhost:3006/api/webhooks/app?mode=test&type=connected" --forward-to "localhost:3006/api/webhooks/billing?mode=test"
+stripe listen --forward-connect-to "https://localhost:3006/api/webhooks/app?mode=test&type=connected" --forward-to "https://localhost:3006/api/webhooks/billing?mode=test" --skip-verify
 ```
 
 ## Trial and billing

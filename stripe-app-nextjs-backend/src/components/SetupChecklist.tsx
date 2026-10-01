@@ -248,7 +248,7 @@ export default async function SetupChecklist() {
                 <>
                     In a separate terminal run{' '}
                     <Code>
-                        {'stripe listen --forward-connect-to "localhost:3006/api/webhooks/app?mode=test&type=connected" --forward-to "localhost:3006/api/webhooks/billing?mode=test"'}
+                        {'stripe listen --forward-connect-to "https://localhost:3006/api/webhooks/app?mode=test&type=connected" --forward-to "https://localhost:3006/api/webhooks/billing?mode=test" --skip-verify'}
                     </Code>{' '}
                     and copy
                     the printed <Code>whsec_…</Code> value into <Code>.env.local</Code>.

@@ -83,7 +83,7 @@ installs both projects. The backend needs `stripe-app-nextjs-backend/.env.local`
    npm run dev
    ```
 
-   The backend runs on <http://localhost:3006> and the Stripe Dashboard
+   The backend runs on <https://localhost:3006> and the Stripe Dashboard
    opens with the app previewed. Open a customer, invoice or payment and
    open the app in the drawer; the app's own page is the task queue.
 

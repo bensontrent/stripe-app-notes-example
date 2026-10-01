@@ -16,7 +16,7 @@ assignment email are this project's own.
    layer), `src/types/notes.ts` (what a note is), and `setup.sql` plus
    `migrations/` (the schema).
 3. Check setup state with `npm run setup` (idempotent; `--non-interactive`
-   when you have no terminal) or the checklist on `http://localhost:3006`
+   when you have no terminal) or the checklist on `https://localhost:3006`
    under `npm run dev`.
 
 ## Non-negotiables
@@ -94,7 +94,7 @@ assignment email are this project's own.
 - `npm run smoke` (with `npm run dev` running) must pass: it exercises the
   notes API end to end with signed requests, including isolation between
   accounts and modes and the paywall, and cleans up after itself.
-- With the dev server running, `http://localhost:3006` shows the setup
+- With the dev server running, `https://localhost:3006` shows the setup
   checklist; every required item should be green.
 - `/login` → register → `/account` exercises Better Auth end to end.
 
@@ -108,3 +108,13 @@ assignment email are this project's own.
   intended).
 - `npm run deploy` against a real Vercel project.
 - A paid Checkout and the customer portal.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->

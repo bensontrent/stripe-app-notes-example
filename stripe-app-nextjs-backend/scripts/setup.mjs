@@ -246,7 +246,7 @@ ${dim(`Adds missing values to ${path.relative(process.cwd(), envLocalPath) || en
         }
       }
     } else {
-      console.log(dim('  Skipped — the checklist at http://localhost:3006 will remind you.'));
+      console.log(dim('  Skipped — the checklist at https://localhost:3006 will remind you.'));
     }
   }
 
@@ -273,7 +273,7 @@ ${dim(`Adds missing values to ${path.relative(process.cwd(), envLocalPath) || en
       );
     }
   } else {
-    console.log(dim('  Skipped — the checklist at http://localhost:3006 will remind you.'));
+    console.log(dim('  Skipped — the checklist at https://localhost:3006 will remind you.'));
   }
 
   // 3. public schema, or a dedicated one on a shared project? (Only worth
@@ -315,8 +315,8 @@ ${dim(`Adds missing values to ${path.relative(process.cwd(), envLocalPath) || en
   );
 
   // 5. URLs for local development.
-  if (!have('BETTER_AUTH_URL')) add('BETTER_AUTH_URL', 'http://localhost:3006');
-  if (!have('NEXT_PUBLIC_BETTER_AUTH_URL')) add('NEXT_PUBLIC_BETTER_AUTH_URL', 'http://localhost:3006');
+  if (!have('BETTER_AUTH_URL')) add('BETTER_AUTH_URL', 'https://localhost:3006');
+  if (!have('NEXT_PUBLIC_BETTER_AUTH_URL')) add('NEXT_PUBLIC_BETTER_AUTH_URL', 'https://localhost:3006');
 
   // 6. Stripe test key — reuse the Stripe CLI's login instead of pasting.
   if (have('STRIPE_SECRET_KEY_TEST')) {
@@ -424,7 +424,7 @@ ${dim(`Adds missing values to ${path.relative(process.cwd(), envLocalPath) || en
   if (!have('STRIPE_SECRET_KEY_TEST')) todo.push('Paste your Stripe test key into STRIPE_SECRET_KEY_TEST in .env.local');
   if (!have('STRIPE_WEBHOOK_SECRET_TEST_CONNECTED')) {
     todo.push(
-      'Local webhooks: `stripe listen --forward-connect-to "localhost:3006/api/webhooks/app?mode=test&type=connected" --forward-to "localhost:3006/api/webhooks/billing?mode=test"`\n' +
+      'Local webhooks: `stripe listen --forward-connect-to "https://localhost:3006/api/webhooks/app?mode=test&type=connected" --forward-to "https://localhost:3006/api/webhooks/billing?mode=test" --skip-verify`\n' +
         '    → copy the printed whsec_… into STRIPE_WEBHOOK_SECRET_TEST_CONNECTED in .env.local',
     );
   }
@@ -438,7 +438,7 @@ ${dim(`Adds missing values to ${path.relative(process.cwd(), envLocalPath) || en
   console.log(`\n${bold(todo.length > 0 ? 'Still to do' : 'All set')}`);
   for (const item of todo) console.log(`  ${yellow('•')} ${item}`);
   console.log(`
-  Start the backend with ${cyan('npm run dev')} — ${cyan('http://localhost:3006')} shows a live setup
+  Start the backend with ${cyan('npm run dev')} — ${cyan('https://localhost:3006')} shows a live setup
   checklist that re-checks everything above on every reload.
 `);
 }

@@ -36,9 +36,9 @@ import type {
 import type { PaywallDeniedBody, PaywallStatus } from '../types/paywall';
 import type { SettingsPatchBody, SettingsResponse } from '../types/settings';
 
-// Point this at your deployed backend. `stripe apps start` allows
-// http://localhost for development; published apps must use https.
-export const BACKEND_BASE = 'http://localhost:3006';
+// Point this at your deployed backend. In development the backend runs
+// `next dev --experimental-https`; published apps must use https.
+export const BACKEND_BASE = 'https://localhost:3006';
 
 type Method = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE';
 

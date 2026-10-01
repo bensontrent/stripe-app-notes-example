@@ -23,22 +23,24 @@ reaches both.
 
 ```sql
 -- migrations/20261005143000_add_api_keys.sql
-CREATE TABLE "api_keys" (
+CREATE TABLE "notes"."api_keys" (
 	"key_hash" text PRIMARY KEY,
-	"user_id" uuid NOT NULL REFERENCES "users"("id") ON DELETE CASCADE,
+	"user_id" uuid NOT NULL REFERENCES "notes"."users"("id") ON DELETE CASCADE,
 	"created_at" timestamptz NOT NULL DEFAULT now()
 );
-CREATE INDEX "api_keys_user_id_idx" ON "api_keys" ("user_id");
-ALTER TABLE "api_keys" ENABLE ROW LEVEL SECURITY;
+CREATE INDEX "api_keys_user_id_idx" ON "notes"."api_keys" ("user_id");
+ALTER TABLE "notes"."api_keys" ENABLE ROW LEVEL SECURITY;
 ```
 
 ## Rules
 
 - **Never edit or rename a file that has been applied anywhere.** It won't run
   again, so databases would drift apart. Fix a mistake with a new migration.
-- **Leave names unqualified** (`"api_keys"`, not `"public"."api_keys"`).
-  `db:setup` points `search_path` at `SUPABASE_SCHEMA`, which is how one file
-  serves `public` and a dedicated schema alike.
+- **Qualify every name with the `notes` schema** (`"notes"."api_keys"`,
+  including `REFERENCES` targets). This project's database is the `notes`
+  schema (`SUPABASE_SCHEMA=notes`), and qualified names make a file work the
+  same whether `db:setup` runs it or it is pasted into the SQL editor.
+  `setup.sql` is still unqualified and relies on `db:setup`'s `search_path`.
 - **Enable Row Level Security on every new table**, with no policies.
   Supabase's REST API exposes the schema to the publishable key; the backend
   uses the secret key, which bypasses RLS.
@@ -59,9 +61,8 @@ ALTER TABLE "api_keys" ENABLE ROW LEVEL SECURITY;
 (`setup.sql`, every migration, and the `applied_migrations` rows) for pasting
 into the Supabase SQL editor. For a database that already has the tables,
 paste only the new migration file and record it, so `db:setup` doesn't apply
-it a second time later (with a dedicated schema, put
-`SET search_path TO "your_schema";` on the first line):
+it a second time later:
 
 ```sql
-INSERT INTO "applied_migrations" ("name") VALUES ('20261005143000_add_api_keys.sql');
+INSERT INTO "notes"."applied_migrations" ("name") VALUES ('20261005143000_add_api_keys.sql');
 ```

@@ -35,6 +35,8 @@
 # misc
 .DS_Store
 *.pem
+# `next dev --experimental-https` writes its local certificate here
+/certificates/
 
 # debug
 npm-debug.log*

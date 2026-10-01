@@ -13,7 +13,7 @@
 //   npm run dev        (one terminal)
 //   npm run smoke      (another)
 //
-// Options: SMOKE_BASE_URL (default http://localhost:3006).
+// Options: SMOKE_BASE_URL (default https://localhost:3006).
 
 import { randomBytes } from 'node:crypto';
 import { dirname, join } from 'node:path';
@@ -25,7 +25,7 @@ import { loadEnv } from './env.mjs';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 loadEnv(root);
 
-const BASE = process.env.SMOKE_BASE_URL || 'http://localhost:3006';
+const BASE = process.env.SMOKE_BASE_URL || 'https://localhost:3006';
 const SECRET = process.env.STRIPE_APP_SIGNING_SECRET;
 const SCHEMA = process.env.SUPABASE_SCHEMA || 'public';
 

@@ -1,9 +1,36 @@
 {
   "$schema": "https://stripe.com/stripe-app.schema.json",
-  "id": "com.productivity.notetaskerator1",
+  "id": "com.productivity.notetaskerator2",
   "name": "Notetaskerator",
   "version": "0.1.0",
   "icon": "./app_icon.png",
+  "ui_extension": {
+    "views": [
+      {
+        "viewport": "stripe.dashboard.fullpage",
+        "component": "FullPage"
+      },
+      {
+        "viewport": "stripe.dashboard.customer.detail",
+        "component": "CustomerNotes"
+      },
+      {
+        "viewport": "stripe.dashboard.invoice.detail",
+        "component": "InvoiceNotes"
+      },
+      {
+        "viewport": "stripe.dashboard.payment.detail",
+        "component": "PaymentNotes"
+      }
+    ],
+    "content_security_policy": {
+      "connect-src": [
+        "https://mydomain.com/api/"
+      ],
+      "purpose": "Stores and loads the notes and tasks, and checks the free trial and plan, on the Notetaskerator backend."
+    }
+  },
+  "extensions": null,
   "permissions": [
     {
       "permission": "customer_read",
@@ -26,32 +53,5 @@
       "purpose": "Emails a team member when a teammate assigns a task to them."
     }
   ],
-  "ui_extension": {
-    "views": [
-      {
-        "viewport": "stripe.dashboard.fullpage",
-        "component": "FullPage"
-      },
-      {
-        "viewport": "stripe.dashboard.customer.detail",
-        "component": "CustomerNotes"
-      },
-      {
-        "viewport": "stripe.dashboard.invoice.detail",
-        "component": "InvoiceNotes"
-      },
-      {
-        "viewport": "stripe.dashboard.payment.detail",
-        "component": "PaymentNotes"
-      }
-    ],
-    "content_security_policy": {
-      "connect-src": [
-        "https://your-backend.example.com/api/"
-      ],
-      "purpose": "Stores and loads the notes and tasks, and checks the free trial and plan, on the Notetaskerator backend."
-    }
-  },
-  "extensions": null,
-  "distribution_type": "private"
+  "distribution_type": "public"
 }

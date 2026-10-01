@@ -9,4 +9,4 @@
 -- The same handlers now own live_installation_id / test_installation_id:
 -- they hold the id of the event that installed the app in that mode (evt_…)
 -- and go back to NULL at uninstall.
-ALTER TABLE "stripe_accounts" ADD COLUMN "email" text;
+ALTER TABLE "notes"."stripe_accounts" ADD COLUMN "email" text;

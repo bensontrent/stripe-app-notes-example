@@ -1,5 +1,5 @@
 {
-  "name": "com.productivity.notetaskerator1",
+  "name": "com.productivity.notetaskerator",
   "version": "0.1.0",
   "description": "Notetaskerator: notes and tasks on customers, invoices and payments in the Stripe Dashboard",
   "private": true,

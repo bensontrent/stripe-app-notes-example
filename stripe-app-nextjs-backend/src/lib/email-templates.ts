@@ -33,7 +33,7 @@ export type InstallEmailData = {
 
 /** This backend's public URL (`npm run deploy` points it at production). */
 function siteUrl(path: string): string {
-  const base = (process.env.BETTER_AUTH_URL?.trim() || 'http://localhost:3006').replace(/\/+$/, '');
+  const base = (process.env.BETTER_AUTH_URL?.trim() || 'https://localhost:3006').replace(/\/+$/, '');
   return `${base}${path}`;
 }
 
