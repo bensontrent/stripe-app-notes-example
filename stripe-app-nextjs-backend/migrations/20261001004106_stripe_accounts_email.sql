@@ -1,0 +1,12 @@
+-- The app webhook's install/uninstall handling (src/lib/app-installs.ts).
+--
+-- At install (account.application.authorized) the webhook stores the
+-- account's contact email next to its name; the welcome email goes there.
+-- It has to be saved then, because once the app is uninstalled
+-- (account.application.deauthorized) the account can no longer be read with
+-- your API key, and the goodbye email still needs an address.
+--
+-- The same handlers now own live_installation_id / test_installation_id:
+-- they hold the id of the event that installed the app in that mode (evt_…)
+-- and go back to NULL at uninstall.
+ALTER TABLE "stripe_accounts" ADD COLUMN "email" text;

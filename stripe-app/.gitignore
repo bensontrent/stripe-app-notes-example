@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Stripe CLI build output (`stripe apps start` / `stripe apps upload`)
+.build/
+
+# Tooling
+.claude/
+.vscode/
+.idea/
+
+# Tests & caches
+coverage/
+*.tsbuildinfo
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log

@@ -1,0 +1,28 @@
+{
+  "name": "notetaskerator",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Notetaskerator: a Stripe App for notes and tasks on customers, invoices and payments, with its Next.js backend",
+  "scripts": {
+    "postinstall": "npm install --prefix stripe-app && npm install --prefix stripe-app-nextjs-backend",
+    "install:all": "npm install --prefix stripe-app && npm install --prefix stripe-app-nextjs-backend",
+    "setup": "npm run setup --prefix stripe-app-nextjs-backend",
+    "dev": "concurrently -n backend,stripe-app -c blue,green \"npm run dev:backend\" \"npm run dev:app\"",
+    "dev:backend": "npm run dev --prefix stripe-app-nextjs-backend",
+    "dev:app": "npm run start --prefix stripe-app",
+    "build:backend": "npm run build --prefix stripe-app-nextjs-backend",
+    "db:setup": "npm run db:setup --prefix stripe-app-nextjs-backend",
+    "deploy:backend": "npm run deploy --prefix stripe-app-nextjs-backend",
+    "stripe:login": "npm run login --prefix stripe-app",
+    "stripe:upload": "npm run upload --prefix stripe-app",
+    "test": "npm test --prefix stripe-app",
+    "typecheck": "npm run typecheck --prefix stripe-app",
+    "smoke": "npm run smoke --prefix stripe-app-nextjs-backend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
+  "engines": {
+    "node": ">=20.9"
+  }
+}

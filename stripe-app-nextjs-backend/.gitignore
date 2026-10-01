@@ -1,0 +1,50 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# env files — .env is written by `stripe projects env --pull`, .env.local by
+# `npm run setup`. Both hold credentials. Keep only the example.
+.env*
+!.env.example
+
+# Stripe Projects: encrypted credential cache + CLI cache. state.json and
+# state.local.json ARE committed (see https://docs.stripe.com/projects#file-reference).
+.projects/cache
+.projects/vault
+.projects/state.test.json
+.projects/state.local.test.json
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts

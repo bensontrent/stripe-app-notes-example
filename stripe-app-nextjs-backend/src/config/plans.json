@@ -1,0 +1,12 @@
+[
+  {
+    "lookupKey": "notetaskerator_pro_monthly",
+    "name": "Pro",
+    "description": "Placeholder plan — set your real name, price and features in src/config/plans.json.",
+    "features": ["Unlimited notes and tasks", "Your whole team included", "Email when a task is assigned"],
+    "unitAmount": 1900,
+    "currency": "usd",
+    "interval": "month",
+    "highlighted": true
+  }
+]

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://stripe.com/stripe-app.schema.json",
+  "id": "com.productivity.notetaskerator1",
+  "name": "Notetaskerator",
+  "version": "0.1.0",
+  "icon": "./app_icon.png",
+  "permissions": [
+    {
+      "permission": "customer_read",
+      "purpose": "Shows the customer's name on notes and tasks, and files a note on an invoice or payment under the customer it belongs to."
+    },
+    {
+      "permission": "invoice_read",
+      "purpose": "Reads an invoice's number and customer so a note written on the invoice can be labelled and also shown on the customer's page."
+    },
+    {
+      "permission": "payment_intent_read",
+      "purpose": "Reads a payment's amount and customer so a note written on the payment can be labelled and also shown on the customer's page."
+    },
+    {
+      "permission": "charge_read",
+      "purpose": "Does the same for payments that the Dashboard shows as a charge rather than a payment intent."
+    },
+    {
+      "permission": "user_email_read",
+      "purpose": "Emails a team member when a teammate assigns a task to them."
+    }
+  ],
+  "ui_extension": {
+    "views": [
+      {
+        "viewport": "stripe.dashboard.fullpage",
+        "component": "FullPage"
+      },
+      {
+        "viewport": "stripe.dashboard.customer.detail",
+        "component": "CustomerNotes"
+      },
+      {
+        "viewport": "stripe.dashboard.invoice.detail",
+        "component": "InvoiceNotes"
+      },
+      {
+        "viewport": "stripe.dashboard.payment.detail",
+        "component": "PaymentNotes"
+      }
+    ],
+    "content_security_policy": {
+      "connect-src": [
+        "https://your-backend.example.com/api/"
+      ],
+      "purpose": "Stores and loads the notes and tasks, and checks the free trial and plan, on the Notetaskerator backend."
+    }
+  },
+  "extensions": null,
+  "distribution_type": "private"
+}
